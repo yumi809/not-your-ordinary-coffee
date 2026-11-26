@@ -1,0 +1,187 @@
+// =============================================================
+//  Base: CSS-змінні теми, reset, типографіка
+// =============================================================
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// --- Темна тема (за замовчуванням) ---
+:root {
+  --c-bg: #{$color-black};
+  --c-bg-alt: #{$color-ink};
+  --c-surface: #{$color-surface};
+  --c-surface-2: #{color.mix($color-blue, $color-black, 55%)};
+  --c-header: #{color.change($color-black, $alpha: 0.72)};
+  --c-text: #{$color-white};
+  --c-text-strong: #ffffff;
+  --c-muted: #{color.mix($color-white, $color-black, 62%)};
+  --c-accent: #{$color-neon};
+  --c-on-accent: #{$color-black};
+  --c-blue: #{$color-blue};
+  --c-olive: #{$color-olive};
+  --c-line: #{color.change($color-white, $alpha: 0.12)};
+  --c-error: #{$color-error};
+  --shadow: 0 24px 48px -24px #{color.change(#000000, $alpha: 0.9)};
+  --glow: 0 0 28px #{color.change($color-neon, $alpha: 0.35)};
+  --header-h: #{$header-h};
+  color-scheme: dark;
+}
+
+// --- Світла тема «Happier Than Ever» (cold white + olive) ---
+[data-theme='light'] {
+  --c-bg: #{$color-white};
+  --c-bg-alt: #{color.adjust($color-white, $lightness: 5%)};
+  --c-surface: #{color.adjust($color-white, $lightness: 9%)};
+  --c-surface-2: #{color.mix($color-olive, $color-white, 16%)};
+  --c-header: #{color.change($color-white, $alpha: 0.82)};
+  --c-text: #{$color-black};
+  --c-text-strong: #{$color-black};
+  --c-muted: #{color.mix($color-black, $color-white, 68%)};
+  --c-accent: #{$color-olive};
+  --c-on-accent: #{$color-white};
+  --c-line: #{color.change($color-black, $alpha: 0.14)};
+  --shadow: 0 24px 48px -30px #{color.change($color-blue, $alpha: 0.55)};
+  --glow: 0 0 0 transparent;
+  color-scheme: light;
+}
+
+// --- Reset ---
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + #{$space * 2});
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: $font-body;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  transition:
+    background-color $duration-base ease,
+    color $duration-base ease;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--c-accent);
+  text-underline-offset: 4px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+// --- Типографіка ---
+h1,
+h2,
+h3 {
+  font-family: $font-display;
+  font-stretch: 112%;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--c-text-strong);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 7vw + 1rem, 6.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3vw + 1rem, 3.25rem);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 0.6vw + 1rem, 1.4rem);
+  line-height: 1.15;
+}
+
+p {
+  max-width: 68ch;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: $space;
+  margin-bottom: $space * 2;
+  font-family: $font-mono;
+  font-size: clamp(0.72rem, 0.68rem + 0.2vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: var(--glow);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+}
+
+::selection {
+  background-color: $color-neon;
+  color: $color-black;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: $space * 2;
+  z-index: 100;
+  padding: $space $space * 2;
+  border-radius: $radius-sm;
+  background-color: var(--c-accent);
+  color: var(--c-on-accent);
+  font-weight: 700;
+
+  &:focus {
+    top: $space * 2;
+  }
+}

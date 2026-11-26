@@ -1,0 +1,107 @@
+//- Бібліотека міксинів (компонентів) сайту
+
+//- Пункт навігації (шапка + футер)
+mixin nav-item(item, isActive)
+  li.nav__item
+    a.nav__link(href=item.href class=isActive ? 'is-active' : null aria-current=isActive ? 'page' : null)= item.label
+
+//- Кнопка-посилання: variant = null | 'outline'
+mixin button(href, text, variant)
+  a(href=href class=variant ? 'btn-' + variant : 'btn')= text
+
+//- Ціна у гривнях
+mixin price(value)
+  span.price #{value} ₴
+
+//- Заголовок секції
+mixin section-head(eyebrow, title, text, id)
+  header.section-head.reveal
+    p.eyebrow= eyebrow
+    h2.section-head__title.glitch(id=id data-text=title)= title
+    if text
+      p.section-head__text= text
+
+//- Картка товару (меню, спецпропозиції)
+mixin card(item, mod)
+  article.card.reveal(class=[mod ? 'card--' + mod : null, item.cat ? 'card--' + item.cat : null] data-tilt)
+    .card__media
+      span.card__zoom
+        img.card__img(src='img/' + item.img alt=item.alt width='600' height='600' loading='lazy')
+      if item.badge
+        span.card__badge= item.badge
+    .card__body
+      h3.card__title= item.title
+      p.card__text= item.text
+      unless !item.price
+        p.card__price
+          +price(item.price)
+          span.card__add(aria-hidden='true') +
+
+//- Плитка стіни фото Billie Eilish
+mixin wall-tile(tile, index)
+  figure.wall__tile.reveal(data-tilt)
+    img.wall__img(src='img/' + tile.img alt=tile.alt width='600' height='800' loading='lazy')
+    figcaption.wall__caption
+      span.wall__num= String(index + 1).padStart(2, '0')
+      span.wall__song= tile.song
+      span.wall__year= tile.year
+
+//- Лічильник-факт
+mixin stat(item)
+  li.stat.reveal
+    span.stat__num= item.num
+    span.stat__label= item.label
+
+//- Павук, що звисає на павутинці (відсилання до кліпу «you should see me in a crown»)
+mixin spider
+  .spider(aria-hidden='true')
+    span.spider__thread
+    svg.spider__body(viewBox='0 0 64 64' focusable='false')
+      g(fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round')
+        path(d='M24 28 L8 18 L2 26 M24 32 L6 32 L0 40 M24 36 L8 44 L4 54 M26 40 L14 54 L14 62')
+        path(d='M40 28 L56 18 L62 26 M40 32 L58 32 L64 40 M40 36 L56 44 L60 54 M38 40 L50 54 L50 62')
+      ellipse(cx='32' cy='34' rx='10' ry='12' fill='currentColor')
+      circle(cx='32' cy='20' r='6' fill='currentColor')
+
+//- Рядок-розділ на головній (фото + назва + опис)
+mixin feature(item)
+  a.feature.reveal(href=item.href)
+    span.feature__media
+      span.feature__zoom
+        img.feature__img(src='img/' + item.img alt=item.alt width='280' height='280' loading='lazy')
+    span.feature__body
+      span.feature__title= item.label
+      span.feature__text= item.text
+
+//- Поле форми з підписом
+mixin form-field(opts)
+  .field(class=opts.full ? 'field--full' : null)
+    label.field__label(for=opts.id)= opts.label
+    if opts.type === 'textarea'
+      textarea.field__input(id=opts.id name=opts.name rows='4' placeholder=opts.placeholder required=opts.required maxlength=opts.maxlength)
+    else if opts.type === 'select'
+      select.field__input(id=opts.id name=opts.name required=opts.required)
+        option(value='') Оберіть позицію…
+        each group in opts.options
+          if group.items
+            optgroup(label=group.label)
+              each entry in group.items
+                option(value=entry)= entry
+          else
+            option(value=group)= group
+    else
+      input.field__input(id=opts.id type=opts.type name=opts.name placeholder=opts.placeholder required=opts.required pattern=opts.pattern title=opts.hint accept=opts.accept autocomplete=opts.autocomplete)
+    if opts.hint
+      small.field__hint= opts.hint
+
+//- Радіо / чекбокс у вигляді «пігулки»
+mixin choice(type, name, value, label, opts)
+  - opts = opts || {}
+  label.choice
+    input(type=type name=name value=value checked=opts.checked required=opts.required)
+    span= label
+
+//- Неоновий «слайм», що стікає (декоративний SVG)
+mixin drip
+  svg.drip(viewBox='0 0 1200 60' preserveAspectRatio='none' aria-hidden='true' focusable='false')
+    path(d='M0,0 H1200 V12 C1182,12 1178,40 1162,40 C1146,40 1142,12 1124,12 H986 C966,12 962,54 944,54 C926,54 922,12 902,12 H706 C690,12 688,30 674,30 C660,30 658,12 642,12 H424 C404,12 400,58 382,58 C364,58 360,12 340,12 H184 C168,12 166,34 152,34 C138,34 136,12 120,12 H0 Z')

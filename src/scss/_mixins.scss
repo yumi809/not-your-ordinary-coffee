@@ -1,0 +1,105 @@
+// =============================================================
+//  Міксини
+// =============================================================
+@use 'sass:map';
+@use 'sass:color';
+@use 'variables' as *;
+
+// Центрування через Flexbox
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+// Рядок «зліва — справа»
+@mixin flex-between($gap: $space * 2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap;
+}
+
+// Медіазапит від точки адаптивності (mobile first)
+@mixin breakpoint($name) {
+  $bp: map.get($breakpoints, $name);
+
+  @if $bp == null {
+    @error "Невідома точка адаптивності `#{$name}`";
+  }
+
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+// Базова «картка»
+@mixin card($pad: $space * 3) {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: $radius;
+  padding: $pad;
+  box-shadow: var(--shadow);
+}
+
+// Неонове світіння тексту
+@mixin neon-text($color: $color-neon, $size: 10px) {
+  color: $color;
+  text-shadow:
+    0 0 $size color.change($color, $alpha: 0.55),
+    0 0 ($size * 3) color.change($color, $alpha: 0.35);
+}
+
+// Фото з наближенням і погойдуванням при наведенні
+// $trigger — селектор батька, на hover якого реагує фото
+@mixin photo-hover($zoom, $img) {
+  #{$zoom} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform $duration-slow $ease;
+  }
+
+  #{$img} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: 50% 70%;
+  }
+
+  &:hover #{$zoom},
+  &:focus-visible #{$zoom} {
+    transform: scale(1.1);
+  }
+
+  &:hover #{$img},
+  &:focus-visible #{$img} {
+    animation: sway 2.8s ease-in-out infinite;
+  }
+}
+
+// Примусова темна палітра (для блоків на фото)
+@mixin force-dark {
+  --c-text: #{$color-white};
+  --c-text-strong: #ffffff;
+  --c-muted: #{color.mix($color-white, $color-black, 70%)};
+  --c-accent: #{$color-neon};
+  --c-on-accent: #{$color-black};
+  --c-line: #{color.change($color-white, $alpha: 0.16)};
+  --glow: 0 0 28px #{color.change($color-neon, $alpha: 0.4)};
+  color: var(--c-text);
+}
+
+// Приховати візуально, залишити для скрінрідерів
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,72 @@
+extends layout.pug
+
+block vars
+  - var page = { id: 'menu', description: "Меню кав'ярні Not Your Ordinary Coffee: кава, матча, десерти та сніданки з назвами пісень Billie Eilish. Ціни та розміри." }
+
+block title
+  | Our Menu — Not Your Ordinary Coffee
+
+block content
+  section.page-hero.page-hero--menu(aria-labelledby='page-title')
+    .container
+      p.eyebrow Coffee • Matcha • Desserts • Breakfast
+      h1#page-title.page-hero__title.glitch(data-text='Our Menu') Our Menu
+      p.page-hero__lead #{menuItems.length} позицій, і кожна названа на честь пісні Billie Eilish. Наведи курсор на фото — вони теж трохи танцюють.
+
+  section.section(aria-labelledby='gallery-title')
+    .container
+      +section-head('Gallery', 'Signature menu', 'Обери категорію — фільтр працює на чистому CSS (:has + :checked).', 'gallery-title')
+
+      //- Фільтр: радіокнопки + :has() ховають картки інших категорій
+      .menu-board
+        .filter(role='radiogroup' aria-label='Категорія меню')
+          each c, i in categories
+            input.filter__input(type='radio' name='cat' id='cat-' + c.id value=c.id checked=i === 0)
+            label.filter__btn(for='cat-' + c.id)
+              | #{c.label}
+              if c.id !== 'all'
+                span.filter__count= menuItems.filter(function (m) { return m.cat === c.id; }).length
+        .gallery
+          each item in menuItems
+            +card(item)
+
+  section.section.section--alt(aria-labelledby='prices-title')
+    .container
+      +section-head('Prices', 'Розміри та ціни', null, 'prices-title')
+      .table-wrap.reveal
+        table.price-table
+          caption Прайс-лист NYOC, грн
+          thead
+            tr
+              th(scope='col' rowspan='2') Категорія
+              th(scope='col' rowspan='2') Позиція
+              th(scope='colgroup' colspan='3') Розмір
+            tr
+              th(scope='col') S · 250 мл
+              th(scope='col') M · 350 мл
+              th(scope='col') L · 450 мл
+          each group in priceTable
+            tbody
+              each row, i in group.items
+                tr
+                  if i === 0
+                    th.price-table__cat(scope='rowgroup' rowspan=group.items.length)= group.cat
+                  td.price-table__name= row.name
+                  if row.one
+                    td.price-table__one(colspan='3')
+                      +price(row.one)
+                      |  · одна порція
+                  else
+                    td
+                      +price(row.s)
+                    td
+                      +price(row.m)
+                    td
+                      +price(row.l)
+          tfoot
+            tr
+              td(colspan='5') Рослинне молоко (вівсяне, кокосове, мигдальне) — +15 ₴. Додатковий шот еспресо — +20 ₴.
+
+      .menu-cta
+        +button('order.html', 'Замовити онлайн')
+        +button('specials.html', 'Дивитись Specials', 'outline')

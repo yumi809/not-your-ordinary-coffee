@@ -1,0 +1,11 @@
+// =============================================================
+//  Not Your Ordinary Coffee — головний файл стилів
+//  Компілюється у dist/css/style.css (Autoprefixer + cssnano)
+// =============================================================
+@use 'base';
+@use 'animations';
+@use 'layout';
+@use 'components';
+@use 'pages';
+@use 'effects';
+@use 'utilities';

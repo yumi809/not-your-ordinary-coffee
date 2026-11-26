@@ -1,0 +1,49 @@
+doctype html
+include _mixins.pug
+include _data.pug
+include _credits.pug
+
+//- Сторінки перевизначають цей блок і задають свої id/опис
+block vars
+  - var page = { id: 'home', description: "Not Your Ordinary Coffee — кав'ярня у стилі Billie Eilish" }
+
+html(lang='uk' data-theme='dark')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    title
+      block title
+        | Not Your Ordinary Coffee
+    meta(name='description' content=page.description)
+    meta(name='keywords' content=site.keywords)
+    meta(name='author' content=site.author)
+    meta(name='theme-color' content='#111111')
+    link(rel='icon' href='img/favicon.svg' type='image/svg+xml')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin)
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap')
+    link(rel='stylesheet' href='css/style.css')
+    //- позначка «JS увімкнено» — щоб анімації появи не ховали контент без JS
+    script.
+      document.documentElement.classList.add('js');
+      try { if (sessionStorage.getItem('nyoc-intro')) { document.documentElement.classList.add('seen-intro'); } else { sessionStorage.setItem('nyoc-intro', '1'); } } catch (e) {}
+    script(src='js/main.js' defer)
+
+  body(class='page-' + page.id)
+    a.skip-link(href='#main') Перейти до вмісту
+
+    //- Заставка: неоновий логотип мерехтить і зникає (animation … forwards)
+    .preloader(aria-hidden='true')
+      span.preloader__logo NYOC
+      span.preloader__sub a Billie Eilish café
+
+    //- Прогрес прокрутки та неоновий курсор
+    .progress(aria-hidden='true')
+    .cursor(aria-hidden='true')
+
+    include _header.pug
+
+    main#main
+      block content
+
+    include _footer.pug

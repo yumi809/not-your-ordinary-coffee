@@ -1,0 +1,52 @@
+extends layout.pug
+
+block vars
+  - var page = { id: 'specials', description: 'Specials у Not Your Ordinary Coffee: сезонні напої, незвичайні поєднання, вінілові вечори Billie Fridays та спеціальні пропозиції.' }
+
+block title
+  | Specials — Not Your Ordinary Coffee
+
+block content
+  section.page-hero.page-hero--specials(aria-labelledby='page-title')
+    .container
+      p.eyebrow Seasonal • Limited • Strange
+      h1#page-title.page-hero__title.glitch(data-text='Specials') Specials
+      p.page-hero__lead Сезонні напої, незвичайні поєднання та спеціальні пропозиції. Гортай вбік →
+
+  section.section(aria-labelledby='season-title')
+    .container
+      +section-head('Winter 2026', 'Сезонне меню', 'Доступне до кінця лютого або поки не скінчиться настрій.', 'season-title')
+      .snap
+        each item in specials
+          +card(item, 'special')
+
+  section.event(aria-labelledby='event-title')
+    .container.event__inner
+      .event__body.reveal
+        p.eyebrow Every Friday · 19:00
+        h2#event-title.event__title
+          | Billie
+          br
+          span.text-neon Fridays
+        p.event__text
+          | Вінілові вечори з усіма альбомами Billie Eilish від «Don't Smile at Me» до «Hit Me Hard and Soft».
+          | Приглушене зелене світло, авторські напої і кожен третій — від нас.
+        //- Зворотний відлік до найближчої п'ятниці 19:00 (заповнює main.js)
+        .countdown(data-countdown aria-live='off')
+          each unit in [['d', 'днів'], ['h', 'годин'], ['m', 'хвилин'], ['s', 'секунд']]
+            .countdown__cell
+              span.countdown__num(data-unit=unit[0]) 00
+              span.countdown__label= unit[1]
+        +button('order.html', 'Забронювати столик')
+
+  section.section.section--alt(aria-labelledby='offers-title')
+    .container
+      +section-head('Deals', 'Спеціальні пропозиції', null, 'offers-title')
+      .offers
+        each deal in deals
+          article.offer.reveal
+            p.offer__num= deal.num
+            h3.offer__title= deal.title
+            p.offer__text= deal.text
+      .menu-cta
+        +button('order.html', 'Скористатися пропозицією')

@@ -1,0 +1,858 @@
+// =============================================================
+//  Components: кнопки, картки, галерея, таблиця, форма та ін.
+// =============================================================
+@use 'sass:color';
+@use 'sass:math';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// --- Кнопки: базовий клас + варіанти через @extend ---
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space;
+  min-height: 52px;
+  padding: 0 $space * 3.5;
+  border: 2px solid var(--c-accent);
+  border-radius: 999px;
+  background-color: var(--c-accent);
+  color: var(--c-on-accent);
+  font-family: $font-mono;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform $duration-fast $ease,
+    background-color $duration-fast ease,
+    color $duration-fast ease,
+    box-shadow $duration-fast ease;
+
+  &::after {
+    content: '→';
+    transition: transform $duration-fast $ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: var(--glow);
+
+    &::after {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+  }
+}
+
+.btn-outline {
+  @extend .btn;
+  background-color: transparent;
+  color: var(--c-accent);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--c-accent);
+    color: var(--c-on-accent);
+  }
+}
+
+.price {
+  font-family: $font-mono;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+// --- Заголовок з глітч-ефектом (::before / ::after з content) ---
+.glitch {
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    color: $color-neon;
+    clip-path: inset(0 0 55% 0);
+  }
+
+  &::after {
+    color: $color-blue-light;
+    clip-path: inset(50% 0 0 0);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    opacity: 0.9;
+    animation: glitch 0.35s steps(2) infinite;
+  }
+
+  &:hover::after {
+    animation-direction: reverse;
+  }
+}
+
+// --- Неоновий слайм ---
+.drip {
+  display: block;
+  width: 100%;
+  height: clamp(28px, 5vw, 60px);
+  margin-top: -1px;
+  color: var(--c-accent);
+
+  path {
+    fill: currentColor;
+    transform-origin: top;
+    transform: scaleY(0);
+    animation: drip 1.6s $ease 0.5s forwards;
+  }
+}
+
+// --- Галерея (Grid + auto-fill) ---
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: clamp(16px, 2vw, 28px);
+
+  // каскадна затримка появи карток у рядку (:nth-child + @for)
+  @for $i from 1 through 4 {
+    > .card:nth-child(4n + #{$i}) {
+      --delay: #{($i - 1) * 0.08}s;
+    }
+  }
+}
+
+// --- Картка товару ---
+.card {
+  @include card(0);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    transform $duration-base $ease,
+    border-color $duration-fast ease,
+    box-shadow $duration-base ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: var(--c-accent);
+    box-shadow: var(--shadow), var(--glow);
+  }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--c-surface-2);
+  }
+
+  @include photo-hover('.card__zoom', '.card__img');
+
+  &__badge {
+    position: absolute;
+    top: $space * 2;
+    left: $space * 2;
+    padding: math.div($space, 2) $space * 1.5;
+    border-radius: 999px;
+    background-color: $color-neon;
+    color: $color-black;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform: rotate(-6deg);
+    box-shadow: 0 0 18px color.change($color-neon, $alpha: 0.5);
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: $space;
+    padding: $space * 2.5 $space * 2.75 $space * 3;
+  }
+
+  &__title {
+    color: var(--c-text-strong);
+  }
+
+  &__text {
+    color: var(--c-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  &__price {
+    margin-top: auto;
+    padding-top: $space;
+    color: var(--c-accent);
+    font-size: 1.1rem;
+  }
+
+  // варіант для каруселі Specials
+  &--special {
+    .card__media {
+      aspect-ratio: 4 / 5;
+    }
+
+    .card__badge {
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+// --- Розділи на головній (як у макеті: фото + назва + опис) ---
+.features {
+  display: grid;
+
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space * 3;
+  }
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: clamp(96px, 28vw, 150px) 1fr;
+  align-items: center;
+  gap: $space * 2.5;
+  padding-block: $space * 3.5;
+  border-bottom: 1px solid var(--c-line);
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__media {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid var(--c-line);
+    border-radius: $radius;
+    box-shadow: var(--shadow);
+  }
+
+  @include photo-hover('.feature__zoom', '.feature__img');
+
+  &__body {
+    display: grid;
+    gap: $space;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-stretch: 112%;
+    font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--c-text-strong);
+    transition: color $duration-fast;
+  }
+
+  &__text {
+    color: var(--c-muted);
+  }
+
+  &:hover &__title {
+    color: var(--c-accent);
+  }
+
+  @include breakpoint(lg) {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: 0;
+    border-bottom: 0;
+  }
+}
+
+// --- Платівка + еквалайзер ---
+.vinyl {
+  position: relative;
+  width: clamp(200px, 40vw, 340px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, $color-black 0 3%, $color-neon 3.5% 15%, $color-black 15.5% 16.5%, transparent 17%),
+    repeating-radial-gradient(circle, #1a1a1a 0 2px, #0b0b0b 2px 4px);
+  box-shadow:
+    0 0 0 6px #1c1c1c,
+    var(--shadow),
+    0 0 60px color.change($color-neon, $alpha: 0.18);
+  animation: spin 6s linear infinite;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 40%, transparent 60%, rgba(255, 255, 255, 0.06) 100%);
+  }
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 36px;
+  margin: $space * 2 0 $space * 3;
+
+  &__bar {
+    width: 6px;
+    height: 100%;
+    border-radius: 3px;
+    background-color: var(--c-accent);
+    transform-origin: bottom;
+    animation: eq 1s ease-in-out infinite;
+
+    @for $i from 1 through 7 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{-0.13 * $i}s;
+        animation-duration: #{0.7 + 0.08 * $i}s;
+      }
+    }
+  }
+}
+
+// --- Біжучий рядок ---
+.marquee {
+  overflow: hidden;
+  padding-block: $space * 2;
+  background-color: $color-neon;
+  color: $color-black;
+  width: 104%;
+  margin: $space * 2 0 $space * 2 -2%;
+  transform: rotate(-1.5deg);
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  &__item {
+    padding-right: $space * 6;
+    font-family: $font-display;
+    font-stretch: 112%;
+    font-size: clamp(1.1rem, 1rem + 1vw, 1.7rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &::after {
+      content: '✦';
+      margin-left: $space * 6;
+    }
+  }
+
+  &:hover &__track {
+    animation-play-state: paused;
+  }
+}
+
+// --- Таблиця цін ---
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--c-line);
+  border-radius: $radius;
+  background-color: var(--c-surface);
+  box-shadow: var(--shadow);
+}
+
+.price-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  caption {
+    padding: $space * 2.5;
+    caption-side: top;
+    text-align: left;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+
+  th,
+  td {
+    padding: $space * 1.75 $space * 2;
+    border-top: 1px solid var(--c-line);
+    text-align: left;
+  }
+
+  thead th {
+    background-color: var(--c-surface-2);
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-text-strong);
+    text-align: center;
+
+    &:not([rowspan]) {
+      white-space: nowrap;
+    }
+  }
+
+  tbody td:not(.price-table__name) {
+    text-align: center;
+  }
+
+  tbody tr:hover td {
+    background-color: var(--c-surface-2);
+    color: var(--c-text-strong);
+  }
+
+  &__cat {
+    vertical-align: top;
+    font-family: $font-display;
+    font-stretch: 112%;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    border-right: 1px solid var(--c-line);
+  }
+
+  &__one {
+    color: var(--c-muted);
+  }
+
+  tfoot td {
+    background-color: var(--c-bg-alt);
+    font-size: 0.85rem;
+    color: var(--c-muted);
+    text-align: left;
+  }
+}
+
+.menu-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space * 1.5;
+  margin-top: $space * 5;
+}
+
+// --- Історія ---
+.story {
+  &__title {
+    margin-bottom: $space * 3;
+  }
+
+  p + p {
+    margin-top: $space * 2;
+  }
+
+  &__title + p::first-letter {
+    float: left;
+    margin: 6px $space * 1.5 0 0;
+    font-family: $font-display;
+    font-size: 4.2em;
+    font-weight: 900;
+    line-height: 0.8;
+    @include neon-text;
+  }
+
+  // ::first-letter у світлій темі
+  [data-theme='light'] & &__title + p::first-letter {
+    color: $color-olive;
+    text-shadow: none;
+  }
+}
+
+// --- Фото інтер'єру ---
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: $space * 2;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: $radius;
+  border: 1px solid var(--c-line);
+
+  @include photo-hover('.photo__zoom', '.photo__img');
+
+  &__caption {
+    position: absolute;
+    left: $space * 1.5;
+    bottom: $space * 1.5;
+    padding: math.div($space, 2) $space * 1.5;
+    border-radius: 999px;
+    background-color: color.change($color-black, $alpha: 0.75);
+    color: $color-neon;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+// --- Плейлист (вкладені списки) ---
+.playlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: $space * 2;
+  counter-reset: album;
+
+  &__album {
+    @include card;
+    position: relative;
+    counter-increment: album;
+    transition: transform $duration-base $ease, border-color $duration-fast;
+
+    &::before {
+      content: counter(album, decimal-leading-zero);
+      display: block;
+      margin-bottom: $space;
+      font-family: $font-mono;
+      font-size: 0.8rem;
+      color: var(--c-accent);
+    }
+
+    &:hover {
+      transform: rotate(-1.2deg) translateY(-4px);
+      border-color: var(--c-accent);
+    }
+  }
+
+  &__year {
+    display: block;
+    margin-top: $space;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: var(--c-muted);
+  }
+
+  &__songs {
+    margin-top: $space * 2;
+
+    li {
+      padding-block: $space * 0.75;
+      border-bottom: 1px dashed var(--c-line);
+      font-size: 0.92rem;
+
+      &::before {
+        content: '♪ ';
+        color: var(--c-accent);
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+// --- Зовнішні посилання ---
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space * 1.5;
+  margin-top: $space * 3;
+
+  &__item {
+    display: inline-flex;
+    padding: $space * 1.25 $space * 2.5;
+    border: 1px solid var(--c-line);
+    border-radius: 999px;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all $duration-fast ease;
+
+    &::after {
+      content: '↗';
+      margin-left: $space;
+      color: var(--c-accent);
+      transition: transform $duration-fast $ease;
+    }
+
+    &:hover {
+      border-color: var(--c-accent);
+      color: var(--c-text-strong);
+
+      &::after {
+        transform: translate(3px, -3px) rotate(10deg);
+      }
+    }
+  }
+}
+
+// --- Інформаційна картка (sticky у .split) ---
+.info-card {
+  @include card($space * 3.5);
+
+  &__title {
+    margin-bottom: $space * 2.5;
+    font-size: 1.4rem;
+  }
+
+  &__hours {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: $space $space * 2;
+    margin-bottom: $space * 2.5;
+
+    dt {
+      font-weight: 600;
+      color: var(--c-text-strong);
+    }
+
+    dd {
+      margin: 0;
+      font-family: $font-mono;
+      color: var(--c-accent);
+      text-align: right;
+    }
+  }
+
+  &__address {
+    margin-bottom: $space * 3;
+    font-style: normal;
+    line-height: 1.9;
+    color: var(--c-muted);
+  }
+}
+
+// --- Спецпропозиції ---
+.snap {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 82%);
+  gap: $space * 2.5;
+  overflow-x: auto;
+  padding-bottom: $space * 2.5;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+
+  > * {
+    scroll-snap-align: start;
+  }
+
+  @include breakpoint(md) {
+    grid-auto-columns: minmax(280px, 340px);
+  }
+}
+
+.offers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: $space * 2.5;
+}
+
+.offer {
+  @include card($space * 4);
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(160deg, var(--c-surface-2) 0%, var(--c-surface) 60%);
+  transition: transform $duration-base $ease, border-color $duration-fast;
+
+  &__num {
+    margin-bottom: $space * 2;
+    font-family: $font-display;
+    font-stretch: 125%;
+    font-size: clamp(2.4rem, 2rem + 2vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--c-accent);
+  }
+
+  &__title {
+    margin-bottom: $space;
+  }
+
+  &__text {
+    color: var(--c-muted);
+  }
+
+  &:hover {
+    transform: translateY(-6px) rotate(1deg);
+    border-color: var(--c-accent);
+  }
+}
+
+// --- Форма ---
+.form {
+  @include card(clamp(20px, 4vw, 40px));
+  display: grid;
+  gap: $space * 3.5;
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space * 1.5;
+  }
+}
+
+.fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: $space * 2.25;
+  min-width: 0;
+  padding: $space * 2.5;
+  border: 1px solid var(--c-line);
+  border-radius: $radius-sm;
+
+  legend {
+    padding: 0 $space * 1.25;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: math.div($space * 3, 4);
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-strong);
+  }
+
+  &__input {
+    width: 100%;
+    min-height: 48px;
+    padding: $space * 1.5 $space * 1.75;
+    border: 1px solid var(--c-line);
+    border-radius: $radius-sm;
+    background-color: var(--c-bg);
+    transition: border-color $duration-fast ease, box-shadow $duration-fast ease;
+
+    &::placeholder {
+      color: var(--c-muted);
+      opacity: 0.7;
+    }
+
+    &:hover {
+      border-color: var(--c-muted);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--c-accent);
+      box-shadow: var(--glow);
+    }
+
+    // некоректно заповнене поле (лише поля з placeholder, коли вже щось введено)
+    &[placeholder]:not(:placeholder-shown):invalid {
+      border-color: var(--c-error);
+    }
+  }
+
+  textarea.field__input {
+    resize: vertical;
+  }
+
+  &__hint {
+    font-size: 0.78rem;
+    color: var(--c-muted);
+  }
+
+  // :has() — підказка червоніє, якщо поле заповнене неправильно
+  &:has(.field__input[placeholder]:not(:placeholder-shown):invalid) .field__hint {
+    color: var(--c-error);
+  }
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space * 1.25;
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: $space;
+  padding: $space * 1.25 $space * 2;
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: border-color $duration-fast, background-color $duration-fast, transform $duration-fast $ease;
+
+  input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--c-accent);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:has(input:checked) {
+    border-color: var(--c-accent);
+    background-color: var(--c-surface-2);
+    color: var(--c-text-strong);
+  }
+
+  &--agree {
+    justify-self: start;
+    border-radius: $radius-sm;
+  }
+}
+
+// Повідомлення після відправки (показується через :target)
+.thanks {
+  display: none;
+  margin-bottom: $space * 3;
+  padding: $space * 3;
+  border: 1px solid var(--c-accent);
+  border-radius: $radius;
+  background-color: var(--c-surface-2);
+
+  &:target {
+    display: block;
+    animation: fade-up 0.8s $ease forwards;
+  }
+
+  &__title {
+    margin-bottom: $space;
+    font-size: clamp(1.3rem, 1rem + 1.5vw, 2rem);
+  }
+}

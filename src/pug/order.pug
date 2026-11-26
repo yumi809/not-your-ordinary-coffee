@@ -1,0 +1,82 @@
+extends layout.pug
+
+block vars
+  - var page = { id: 'order', description: "Онлайн-замовлення в кав'ярні Not Your Ordinary Coffee: оберіть напій, розмір і добавки та заберіть без черги." }
+  - var drinkNames = categories.filter(function (c) { return c.id !== 'all'; }).map(function (c) { return { label: c.label, items: menuItems.filter(function (m) { return m.cat === c.id; }).map(function (m) { return m.title; }) }; })
+  - drinkNames.push({ label: 'Specials', items: specials.map(function (s) { return s.title; }) })
+
+block title
+  | Order — Not Your Ordinary Coffee
+
+block content
+  section.page-hero.page-hero--order(aria-labelledby='page-title')
+    .container
+      p.eyebrow Order online
+      h1#page-title.page-hero__title.glitch(data-text='Order') Order
+      p.page-hero__lead Заповни форму — і твій напій чекатиме на баристі, поки ти йдеш до нас.
+
+  section.section
+    .container.split
+      .split__main
+        section#thanks.thanks(aria-live='polite')
+          p.eyebrow Done
+          h2.thanks__title Дякуємо! Замовлення прийнято.
+          p Бариста вже ставить твою платівку. Чекаємо на тебе за адресою: #{site.address}.
+
+        form.form(action='order.html#thanks' method='get')
+          fieldset.fieldset
+            legend Твої контакти
+            +form-field({ id: 'name', name: 'name', type: 'text', label: "Ім'я", placeholder: 'Billie', required: true, pattern: "[A-Za-zА-Яа-яЁёҐґЄєІіЇї' \\-]{2,40}", hint: 'Від 2 до 40 літер', autocomplete: 'given-name' })
+            +form-field({ id: 'email', name: 'email', type: 'email', label: 'Email', placeholder: 'you@example.com', required: true, autocomplete: 'email' })
+            +form-field({ id: 'phone', name: 'phone', type: 'tel', label: 'Телефон', placeholder: '+380XXXXXXXXX', required: true, pattern: '\\+380[0-9]{9}', hint: 'Формат: +380 і 9 цифр', autocomplete: 'tel' })
+
+          fieldset.fieldset
+            legend Замовлення
+            +form-field({ id: 'drink', name: 'drink', type: 'select', label: 'Позиція з меню', required: true, options: drinkNames, full: true })
+            .field.field--full
+              span.field__label Розмір
+              .choices
+                +choice('radio', 'size', 'S', 'S · 250 мл', { required: true })
+                +choice('radio', 'size', 'M', 'M · 350 мл', { checked: true })
+                +choice('radio', 'size', 'L', 'L · 450 мл')
+            .field.field--full
+              span.field__label Добавки
+              .choices
+                +choice('checkbox', 'extras', 'oat', 'Вівсяне молоко')
+                +choice('checkbox', 'extras', 'shot', 'Додатковий шот')
+                +choice('checkbox', 'extras', 'syrup', 'Сироп')
+                +choice('checkbox', 'extras', 'vinyl', 'Попросити свій трек')
+
+          fieldset.fieldset
+            legend Отримання
+            .field.field--full
+              span.field__label Спосіб
+              .choices
+                +choice('radio', 'delivery', 'pickup', 'Заберу сам(а)', { checked: true })
+                +choice('radio', 'delivery', 'table', 'Подати за столик')
+            +form-field({ id: 'time', name: 'time', type: 'time', label: 'Час', required: true })
+            +form-field({ id: 'art', name: 'art', type: 'file', label: 'Фото для латте-арту', accept: 'image/*', hint: 'Надрукуємо на пінці (необовʼязково)' })
+            +form-field({ id: 'comment', name: 'comment', type: 'textarea', label: 'Коментар', placeholder: 'Менше льоду, більше меланхолії…', maxlength: 300, full: true })
+
+          label.choice.choice--agree
+            input(type='checkbox' name='agree' required)
+            span Погоджуюсь на обробку даних для цього замовлення
+
+          .form__actions
+            button.btn(type='submit') Надіслати замовлення
+            button.btn-outline(type='reset') Очистити
+
+      aside.split__aside(aria-label='Контакти')
+        .info-card
+          p.eyebrow Contacts
+          h2.info-card__title Де нас знайти
+          address.info-card__address
+            | #{site.address}
+            br
+            a(href='tel:' + site.phoneHref)= site.phone
+            br
+            a(href='mailto:' + site.email)= site.email
+          dl.info-card__hours
+            each h in hours
+              dt= h.days
+              dd= h.time

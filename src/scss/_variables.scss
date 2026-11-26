@@ -1,0 +1,55 @@
+// =============================================================
+//  Змінні теми: палітра Billie Eilish (neon green × almost black)
+// =============================================================
+@use 'sass:color';
+
+// --- Кольори (палітра з мудборду) ---
+$color-black: #111111;   // Almost black
+$color-neon: #c8ff00;    // Neon green
+$color-blue: #253a4f;    // Deep blue
+$color-white: #d8d4cf;   // Cold white
+$color-olive: #556343;   // Olive
+$color-ink: #0a0a0a;
+$color-error: #ff4d6d;
+
+// Похідні кольори (color-функції)
+$color-neon-dark: color.adjust($color-neon, $lightness: -18%);
+$color-blue-light: color.adjust($color-blue, $lightness: 18%);
+$color-surface: color.mix($color-blue, $color-black, 22%);
+
+// --- Шрифти ---
+$font-display: 'Archivo', 'Arial Black', sans-serif;
+$font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-mono: 'Space Mono', ui-monospace, 'Courier New', monospace;
+
+// --- Відступи, радіуси, розміри ---
+$space: 8px;
+$radius: 22px;
+$radius-sm: 12px;
+$container: 1200px;
+$header-h: 72px;
+
+// --- Анімації ---
+$duration-fast: 0.25s;
+$duration-base: 0.45s;
+$duration-slow: 0.9s;
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+// --- Точки адаптивності ---
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1440px,
+);
+
+// Фони сторінок-героїв (для генерації класів через @each)
+$page-heroes: (
+  menu: 'cappuccino.jpg',
+  world: 'billie-stage.jpg',
+  specials: 'billie-2024.jpg',
+  order: 'billie-flames.jpg',
+);
+
+// Категорії меню (для генерації CSS-фільтра через @each)
+$menu-categories: coffee, matcha, dessert, food;

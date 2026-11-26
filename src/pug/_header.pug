@@ -1,0 +1,17 @@
+header.header
+  .container.header__inner
+    a.logo(href='index.html' aria-label='Not Your Ordinary Coffee — на головну')
+      span.logo__dot(aria-hidden='true')
+      span.logo__text NYOC
+
+    input#nav-toggle.header__toggle(type='checkbox' aria-label='Показати або сховати меню')
+    label.burger(for='nav-toggle')
+      span.burger__line
+      span.visually-hidden Меню
+
+    nav.nav(aria-label='Головне меню')
+      ul.nav__list
+        each item in nav
+          +nav-item(item, item.id === page.id)
+
+    button.theme-toggle(type='button' data-theme-toggle aria-label='Змінити тему (темна / світла)')

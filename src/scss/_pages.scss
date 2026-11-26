@@ -1,0 +1,199 @@
+// =============================================================
+//  Pages: герой головної, герої внутрішніх сторінок, блоки головної
+// =============================================================
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// --- Герой головної ---
+.hero {
+  @include force-dark;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: calc(var(--header-h) + #{$space * 6}) 0 $space * 12;
+  overflow: hidden;
+  background-color: $color-black;
+  background-image:
+    linear-gradient(180deg, color.change($color-black, $alpha: 0.35) 0%, color.change($color-black, $alpha: 0.75) 55%, $color-black 100%),
+    url('../img/billie-hero.jpg');
+  background-position: center, 60% top;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @include breakpoint(md) {
+    background-image:
+      linear-gradient(90deg, $color-black 0%, color.change($color-black, $alpha: 0.88) 40%, color.change($color-black, $alpha: 0.05) 75%),
+      url('../img/billie-hero.jpg');
+    background-position: center, right 20%;
+    background-size: cover, auto 120%;
+  }
+
+  // зелене світіння, що «дихає»
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, color.change($color-neon, $alpha: 0.18) 0%, transparent 65%);
+    animation: pulse 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  &__inner {
+    position: relative;
+  }
+
+  &__eyebrow {
+    font-family: $font-display;
+    font-size: clamp(0.9rem, 0.8rem + 0.6vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: $color-neon;
+    opacity: 0;
+    animation: fade-up 0.8s $ease 0.1s forwards;
+  }
+
+  &__title {
+    margin: $space * 2 0 $space * 3;
+    font-size: clamp(2.6rem, 8.5vw + 0.5rem, 7.5rem);
+    line-height: 0.98;
+  }
+
+  &__line {
+    display: block;
+    opacity: 0;
+    animation: fade-up 0.9s $ease forwards;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.2 + $i * 0.15}s;
+      }
+    }
+  }
+
+  &__accent {
+    color: $color-neon;
+    animation: flicker 4s linear 1.4s infinite;
+  }
+
+  &__lead {
+    max-width: 44ch;
+    margin-bottom: $space * 4;
+    color: var(--c-muted);
+    font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
+    opacity: 0;
+    animation: fade-up 0.9s $ease 0.85s forwards;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space * 1.5;
+    opacity: 0;
+    animation: fade-up 0.9s $ease 1s forwards;
+  }
+
+  &__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: $space * 3;
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    animation: bounce 2s ease-in-out infinite;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 28px;
+      margin: $space auto 0;
+      background-image: linear-gradient($color-neon, transparent);
+    }
+  }
+}
+
+// --- Герої внутрішніх сторінок (фон генерується через @each) ---
+.page-hero {
+  @include force-dark;
+  position: relative;
+  padding: calc(var(--header-h) + clamp(56px, 9vw, 120px)) 0 clamp(56px, 7vw, 96px);
+  background-color: $color-black;
+  background-position: center;
+  background-size: cover;
+  border-bottom: 1px solid var(--c-line);
+
+  &__title {
+    margin-bottom: $space * 2;
+    font-size: clamp(2.6rem, 8vw + 0.5rem, 7rem);
+    opacity: 0;
+    animation: fade-up 0.9s $ease 0.15s forwards;
+  }
+
+  &__lead {
+    max-width: 52ch;
+    color: var(--c-muted);
+    font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
+    opacity: 0;
+    animation: fade-up 0.9s $ease 0.35s forwards;
+  }
+
+  @each $name, $img in $page-heroes {
+    &--#{$name} {
+      background-image:
+        linear-gradient(180deg, color.change($color-black, $alpha: 0.55) 0%, color.change($color-black, $alpha: 0.92) 100%),
+        url('../img/#{$img}');
+    }
+  }
+}
+
+// --- Блок «Now playing» ---
+.now {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+
+  @include breakpoint(md) {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+  }
+
+  &__title {
+    font-size: clamp(1.8rem, 2.5vw + 1rem, 3.2rem);
+    @include neon-text($color-neon, 8px);
+  }
+
+  &__text {
+    margin-bottom: $space * 4;
+    color: var(--c-muted);
+  }
+}
+
+[data-theme='light'] .now__title {
+  color: $color-black;
+  text-shadow: none;
+}
+
+// --- Заклик до дії ---
+.cta {
+  display: grid;
+  justify-items: center;
+  gap: $space * 3;
+  text-align: center;
+
+  &__title {
+    font-size: clamp(1.9rem, 3vw + 1rem, 3.6rem);
+  }
+
+  &__text {
+    color: var(--c-muted);
+  }
+}

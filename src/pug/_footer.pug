@@ -1,0 +1,39 @@
+footer.footer
+  +drip
+  .container.footer__grid
+    .footer__brand
+      a.logo(href='index.html' aria-label='Not Your Ordinary Coffee — на головну')
+        span.logo__dot(aria-hidden='true')
+        span.logo__text NYOC
+      p.footer__tagline COFFEE • MUSIC • FEELINGS
+      address.footer__address
+        | #{site.address}
+        br
+        a(href='tel:' + site.phoneHref)= site.phone
+        br
+        a(href='mailto:' + site.email)= site.email
+
+    nav.footer__col(aria-label='Навігація у футері')
+      h2.footer__title Сторінки
+      ul.footer__list
+        each item in nav
+          +nav-item(item, item.id === page.id)
+
+    .footer__col
+      h2.footer__title Години
+      ul.footer__list
+        each h in hours
+          li
+            span.footer__days= h.days
+            |  #{h.time}
+
+    .footer__col
+      h2.footer__title Слухай з нами
+      ul.footer__list.footer__ext
+        each link in socials
+          li
+            a(href=link.href target='_blank' rel='noopener noreferrer')= link.label
+
+  .container.footer__bottom
+    p © #{site.year} Not Your Ordinary Coffee. Навчальний проєкт. Автор — #{site.author}.
+    p Фан-проєкт, натхненний музикою Billie Eilish. Не пов'язаний з артисткою.

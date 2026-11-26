@@ -1,0 +1,43 @@
+// =============================================================
+//  Утилітні класи, згенеровані через @each та @for
+// =============================================================
+@use 'variables' as *;
+
+// Кольори тексту й фону: .text-neon, .bg-blue …
+$utility-colors: (
+  'neon': $color-neon,
+  'blue': $color-blue,
+  'olive': $color-olive,
+  'white': $color-white,
+  'black': $color-black,
+);
+
+@each $name, $value in $utility-colors {
+  .text-#{$name} {
+    color: $value;
+  }
+
+  .bg-#{$name} {
+    background-color: $value;
+  }
+}
+
+// Світла тема: неоновий текст стає оливковим (читабельність)
+[data-theme='light'] .text-neon {
+  color: $color-olive;
+}
+
+// Відступи: .mt-1 … .mt-5, .mb-1 … .mb-5
+@for $i from 1 through 5 {
+  .mt-#{$i} {
+    margin-top: $space * $i;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: $space * $i;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

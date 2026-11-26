@@ -1,0 +1,96 @@
+extends layout.pug
+
+block vars
+  - var page = { id: 'home', description: "Not Your Ordinary Coffee — кав'ярня у стилі Billie Eilish: кава, матча, десерти з назвами її пісень і вінілові вечори." }
+  - var bestsellers = menuItems.filter(function (item) { return item.badge; }).slice(0, 4)
+
+block title
+  | Not Your Ordinary Coffee — Billie Eilish café
+
+block content
+  section.hero(aria-labelledby='hero-title')
+    +spider
+    p.hero__vertical(aria-hidden='true') BILLIE EILISH
+    .container.hero__inner
+      p.hero__eyebrow COFFEE • MUSIC • FEELINGS
+      h1#hero-title.hero__title
+        span.hero__line NOT YOUR
+        span.hero__line
+          span.hero__accent ORDINARY
+        span.hero__line COFFEE.
+      p.hero__tag
+        span.hero__tag-dot
+        | The Billie Eilish café
+      p.hero__lead Перша кав'ярня у стилі Billie Eilish: неоново-зелене світло, вініл з її альбомами і напої, названі на честь її пісень.
+      nav.hero__actions(aria-label='Розділи сайту')
+        each item in sections
+          +button(item.href, item.label, item.variant)
+    p.hero__scroll(aria-hidden='true') scroll
+
+  +drip
+
+  section.section(aria-labelledby='explore-title')
+    .container
+      +section-head('Explore', 'Три світи NYOC', null, 'explore-title')
+      .features
+        each item in sections
+          +feature(item)
+
+  section.section.section--tight(aria-label='NYOC у цифрах')
+    .container
+      ul.stats
+        each item in stats
+          +stat(item)
+
+  section.section.section--alt.wall-section(aria-labelledby='wall-title')
+    p.outline-text(aria-hidden='true') HAPPIER THAN EVER
+    .container
+      +section-head('Our muse', 'Billie Eilish', 'Уся кав’ярня — це лист любові до її музики. Кожна стіна, кожен трек і кожна назва в меню.', 'wall-title')
+      .wall
+        each tile, i in billieWall
+          +wall-tile(tile, i)
+
+  section.section(aria-labelledby='now-title')
+    .container.now
+      .now__vinyl.reveal
+        .vinyl(aria-hidden='true')
+      article.now__body.reveal
+        p.eyebrow Now playing
+        h2#now-title.now__title Hit Me Hard and Soft
+        .eq(aria-hidden='true')
+          each n in [1, 2, 3, 4, 5, 6, 7]
+            span.eq__bar
+        p.now__text
+          | У нас немає фонової музики «для галочки». Платівки Billie Eilish крутяться на програвачі з ранку до закриття,
+          | а щоп'ятниці ми влаштовуємо вінілові вечори з приглушеним зеленим світлом.
+        +button('world.html', 'Про нашу музику', 'outline')
+
+  .marquees
+    .marquee(aria-hidden='true')
+      .marquee__track
+        each round in [1, 2]
+          each item in menuItems
+            span.marquee__item= item.title
+    .marquee.marquee--outline(aria-hidden='true')
+      .marquee__track
+        each round in [1, 2]
+          each album in albums
+            span.marquee__item= album.title
+
+  section.section(aria-labelledby='best-title')
+    .container
+      +section-head('Bestsellers', 'Хіти меню', 'Те, що замовляють найчастіше. Наведи курсор — картка нахилиться слідом.', 'best-title')
+      .gallery
+        each item in bestsellers
+          +card(item)
+      .menu-cta
+        +button('menu.html', 'Усе меню')
+
+  section.section.section--alt(aria-labelledby='cta-title')
+    .container.cta.reveal
+      h2#cta-title.cta__title
+        | Замовляй онлайн —
+        br
+        span.text-neon забирай без черги
+      p.cta__text Обери напій, розмір і добавки, а ми приготуємо все до твого приходу.
+      +button('order.html', 'Order now')

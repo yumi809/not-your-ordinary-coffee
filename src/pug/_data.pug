@@ -1,0 +1,154 @@
+//- Дані сайту: масиви, з яких цикли each генерують меню, картки й таблицю
+-
+  var site = {
+    name: 'Not Your Ordinary Coffee',
+    author: 'Кароліна',
+    keywords: "кав'ярня, Billie Eilish, кава, матча, авторські напої, десерти, сніданки, музика, онлайн-замовлення",
+    address: 'вул. Неонова, 17',
+    phone: '+380 67 000 17 17',
+    phoneHref: '+380670001717',
+    email: 'hello@nyoc.coffee',
+    year: 2026
+  };
+
+  var nav = [
+    { id: 'home', href: 'index.html', label: 'Home' },
+    { id: 'menu', href: 'menu.html', label: 'Our Menu' },
+    { id: 'world', href: 'world.html', label: 'Our World' },
+    { id: 'specials', href: 'specials.html', label: 'Specials' },
+    { id: 'order', href: 'order.html', label: 'Order' }
+  ];
+
+  var sections = [
+    { href: 'menu.html', label: 'Our Menu', variant: null, img: 'matcha.jpg', alt: 'Айс-матча з молоком у високій склянці', text: 'Кава, матча, авторські напої, сніданки та десерти. Темні картки з яскравими назвами.' },
+    { href: 'world.html', label: 'Our World', variant: 'outline', img: 'billie-stage.jpg', alt: 'Силует на сцені в променях світла', text: "Інтер'єр, атмосфера, музика Billie на вінілі та історія кафе." },
+    { href: 'specials.html', label: 'Specials', variant: 'outline', img: 'americano.jpg', alt: 'Чорна кава в темній чашці, вигляд згори', text: 'Сезонні напої, незвичайні поєднання та спеціальні пропозиції.' }
+  ];
+
+  //- Категорії меню (для фільтра)
+  var categories = [
+    { id: 'all', label: 'Усе' },
+    { id: 'coffee', label: 'Кава' },
+    { id: 'matcha', label: 'Матча й чай' },
+    { id: 'dessert', label: 'Десерти' },
+    { id: 'food', label: 'Сніданки' }
+  ];
+
+  var menuItems = [
+    { cat: 'coffee', title: 'Bad Guy Espresso', text: 'Подвійний еспресо темного обсмаження з нотами какао та чорної вишні.', price: 65, img: 'espresso.jpg', alt: 'Еспресо в білій чашці', badge: 'Hot' },
+    { cat: 'coffee', title: "When the Party's Over", text: 'Американо в чорній чашці — для тих, хто йде останнім.', price: 70, img: 'americano.jpg', alt: 'Американо в чорній чашці, вигляд згори' },
+    { cat: 'coffee', title: 'Ocean Eyes Cappuccino', text: 'Класичний капучино з шовковою піною та латте-артом.', price: 85, img: 'cappuccino.jpg', alt: 'Капучино з латте-артом' },
+    { cat: 'coffee', title: 'Six Feet Under Flat White', text: 'Подвійний ристрето і тонкий шар молока. Глибоко.', price: 90, img: 'flat-white.jpg', alt: 'Флет вайт на темному дерев’яному столі' },
+    { cat: 'coffee', title: 'Bury a Friend Mocha', text: 'Холодне мокко з солоною карамеллю та чорним шоколадом.', price: 115, img: 'mocha.jpg', alt: 'Холодне мокко з карамеллю', badge: 'Top' },
+    { cat: 'coffee', title: 'Lovely Cold Brew', text: 'Колд брю 18-годинної екстракції з апельсиновою цедрою.', price: 95, img: 'cold-brew.jpg', alt: 'Колд брю з льодом' },
+    { cat: 'coffee', title: "Halley's Comet Latte", text: 'Ніжне лате на вівсяному молоці без цукру і без зайвого.', price: 90, img: 'ocean-eyes.jpg', alt: 'Лате з латте-артом у чорній чашці' },
+    { cat: 'matcha', title: 'Happier Than Ever Matcha', text: 'Айс-матча церемоніального класу з вівсяним молоком.', price: 120, img: 'matcha.jpg', alt: 'Айс-матча з молоком', badge: 'Signature' },
+    { cat: 'matcha', title: 'Getting Older Matcha', text: 'Гаряча матча-лате з латте-артом і ваніллю.', price: 110, img: 'matcha-hot.jpg', alt: 'Гаряча матча з латте-артом' },
+    { cat: 'matcha', title: 'Lunch Chai Latte', text: 'Пряний чай з корицею, кардамоном та молочною піною.', price: 100, img: 'chai.jpg', alt: 'Чай-лате в чорній чашці' },
+    { cat: 'matcha', title: 'Wildflower Raf', text: 'Раф з лавандою і медом — ніжний, як акустика.', price: 125, img: 'lavender.jpg', alt: 'Лавандовий раф у блакитній чашці' },
+    { cat: 'matcha', title: 'Chihiro Tonic', text: 'Еспресо-тонік з юдзу та розмарином. Гірко, свіжо, несподівано.', price: 120, img: 'tonic.jpg', alt: 'Еспресо-тонік у склянці', badge: 'New' },
+    { cat: 'dessert', title: 'Birds of a Feather Cheesecake', text: 'Нью-йоркський чізкейк з малиновим соусом.', price: 140, img: 'cheesecake.jpg', alt: 'Чізкейк з малиновим соусом', badge: 'Top' },
+    { cat: 'dessert', title: 'Everything I Wanted Brownie', text: 'Брауні з горіхами та морською сіллю.', price: 105, img: 'brownie.jpg', alt: 'Брауні з горіхами' },
+    { cat: 'dessert', title: 'Therefore I Am Affogato', text: 'Кулька ванільного морозива, залита гарячим еспресо.', price: 110, img: 'affogato.jpg', alt: 'Афогато в білій чашці' },
+    { cat: 'dessert', title: 'No Time to Die Tiramisu', text: 'Тірамісу з маскарпоне, савоярді та какао.', price: 130, img: 'tiramisu.jpg', alt: 'Шматок тірамісу' },
+    { cat: 'dessert', title: 'Bellyache Choco Cake', text: 'Шоколадний торт з ганашем і шоколадною стружкою.', price: 135, img: 'choco-cake.jpg', alt: 'Шоколадний торт' },
+    { cat: 'dessert', title: 'idontwannabeyouanymore Macarons', text: 'Сет із шести макарунів різних кольорів і смаків.', price: 150, img: 'macarons.jpg', alt: 'Кольорові макаруни' },
+    { cat: 'dessert', title: 'Copycat Cinnamon Bun', text: 'Скандинавська булочка з кардамоном та корицею.', price: 75, img: 'cinnamon-bun.jpg', alt: 'Булочка з корицею' },
+    { cat: 'food', title: 'My Boy Croissant', text: 'Масляний круасан з полуницею, чорницею та пудрою.', price: 120, img: 'croissant.jpg', alt: 'Круасан з ягодами' },
+    { cat: 'food', title: 'Ilomilo Avocado Toast', text: 'Житній тост з авокадо, кунжутом і лаймом.', price: 155, img: 'avocado-toast.jpg', alt: 'Тост з авокадо' },
+    { cat: 'food', title: 'Lost Cause Toast', text: 'Тост з авокадо, яйцем-пашот і зеленим салатом.', price: 175, img: 'egg-toast.jpg', alt: 'Тост з авокадо та яйцем' },
+    { cat: 'food', title: 'Ocean Eyes Açaí Bowl', text: 'Боул з асаї, бананом, ягодами та гранолою.', price: 165, img: 'acai-bowl.jpg', alt: 'Боул з асаї та ягодами' }
+  ];
+
+  var priceTable = [
+    { cat: 'Кава', items: [
+      { name: 'Bad Guy Espresso', one: 65 },
+      { name: "When the Party's Over", s: 70, m: 80, l: 90 },
+      { name: 'Ocean Eyes Cappuccino', s: 75, m: 85, l: 95 },
+      { name: 'Six Feet Under Flat White', one: 90 },
+      { name: 'Bury a Friend Mocha', s: 105, m: 115, l: 125 },
+      { name: 'Lovely Cold Brew', s: 85, m: 95, l: 105 },
+      { name: "Halley's Comet Latte", s: 80, m: 90, l: 100 }
+    ] },
+    { cat: 'Матча й чай', items: [
+      { name: 'Happier Than Ever Matcha', s: 110, m: 120, l: 135 },
+      { name: 'Getting Older Matcha', s: 100, m: 110, l: 125 },
+      { name: 'Lunch Chai Latte', s: 90, m: 100, l: 110 },
+      { name: 'Wildflower Raf', s: 115, m: 125, l: 140 },
+      { name: 'Chihiro Tonic', one: 120 }
+    ] },
+    { cat: 'Десерти', items: [
+      { name: 'Birds of a Feather Cheesecake', one: 140 },
+      { name: 'Everything I Wanted Brownie', one: 105 },
+      { name: 'Therefore I Am Affogato', one: 110 },
+      { name: 'No Time to Die Tiramisu', one: 130 },
+      { name: 'Bellyache Choco Cake', one: 135 },
+      { name: 'idontwannabeyouanymore Macarons', one: 150 },
+      { name: 'Copycat Cinnamon Bun', one: 75 }
+    ] },
+    { cat: 'Сніданки', items: [
+      { name: 'My Boy Croissant', one: 120 },
+      { name: 'Ilomilo Avocado Toast', one: 155 },
+      { name: 'Lost Cause Toast', one: 175 },
+      { name: 'Ocean Eyes Açaí Bowl', one: 165 }
+    ] }
+  ];
+
+  var specials = [
+    { title: 'Hit Me Hard and Soft', text: "Зимовий раф з димною корицею, солоною карамеллю та м'якою піною.", price: 135, img: 'lavender.jpg', alt: 'Раф у блакитній чашці', badge: 'Новинка' },
+    { title: 'Chihiro Tonic', text: 'Еспресо-тонік з юдзу та розмарином. Гірко, свіжо, несподівано.', price: 120, img: 'tonic.jpg', alt: 'Еспресо-тонік', badge: 'Must try' },
+    { title: 'L’Amour de Ma Vie Affogato', text: 'Морозиво з фісташкою, залите гарячим подвійним еспресо.', price: 125, img: 'affogato.jpg', alt: 'Афогато' },
+    { title: 'My Future Matcha Cloud', text: 'Матча з хмаринкою солоної кокосової піни.', price: 130, img: 'matcha-hot.jpg', alt: 'Матча з піною', badge: 'Сезон' },
+    { title: 'The Greatest Tiramisu', text: 'Тірамісу з еспресо-лікером без алкоголю та чорним какао.', price: 145, img: 'tiramisu.jpg', alt: 'Тірамісу' },
+    { title: 'Blue Cold Brew', text: 'Колд брю з тонкою ноткою голубики та льодом.', price: 110, img: 'cold-brew.jpg', alt: 'Колд брю з льодом' }
+  ];
+
+  var deals = [
+    { num: '−20%', title: 'Early Bird', text: 'Щодня з 08:00 до 10:00 — знижка на будь-яку каву.' },
+    { num: '3 = 2', title: 'Billie Fridays', text: "Щоп'ятниці з 19:00 вінілові вечори: кожен третій напій — від нас." },
+    { num: '18.12', title: 'Birthday Menu', text: 'У день народження Billie — уся лінійка Happier Than Ever за половину ціни.' }
+  ];
+
+  //- Стіна фото Billie Eilish (головна)
+  var billieWall = [
+    { img: 'billie-portrait.jpg', alt: 'Billie Eilish, портрет 2019 року', song: 'bad guy', year: 2019 },
+    { img: 'billie-bw.jpg', alt: 'Billie Eilish, чорно-біле фото з фестивалю Pukkelpop', song: 'when the party’s over', year: 2019 },
+    { img: 'billie-2024.jpg', alt: 'Billie Eilish на сцені в Інглвуді, 2024', song: 'BIRDS OF A FEATHER', year: 2024 },
+    { img: 'billie-2017.jpg', alt: 'Billie Eilish з гітарою на сцені, Лос-Анджелес 2017', song: 'ocean eyes', year: 2017 },
+    { img: 'billie-flames.jpg', alt: 'Billie Eilish у чорній футболці з зеленим полум’ям', song: 'bury a friend', year: 2019 },
+    { img: 'billie-2017b.jpg', alt: 'Billie Eilish співає у помаранчевому жилеті, 2017', song: 'idontwannabeyouanymore', year: 2017 }
+  ];
+
+  var stats = [
+    { num: '23', label: 'позиції в меню' },
+    { num: '4', label: 'альбоми на вінілі' },
+    { num: '18.12', label: 'день народження Billie' },
+    { num: '∞', label: 'меланхолії' }
+  ];
+
+  var albums = [
+    { title: "Don't Smile at Me", year: 2017, songs: ['ocean eyes', 'bellyache', 'idontwannabeyouanymore', 'COPYCAT'] },
+    { title: 'When We All Fall Asleep, Where Do We Go?', year: 2019, songs: ['bad guy', 'bury a friend', "when the party's over", 'ilomilo'] },
+    { title: 'Happier Than Ever', year: 2021, songs: ['Getting Older', 'Lost Cause', 'Happier Than Ever', 'Therefore I Am'] },
+    { title: 'Hit Me Hard and Soft', year: 2024, songs: ['LUNCH', 'CHIHIRO', 'BIRDS OF A FEATHER', 'WILDFLOWER'] }
+  ];
+
+  var photos = [
+    { img: 'billie-stage.jpg', alt: 'Силует артистки на сцені в променях світла', caption: 'Billie Fridays — вінілові вечори' },
+    { img: 'interior.jpg', alt: "Затишний зал кав'ярні з дерев'яною підлогою", caption: 'Зала' },
+    { img: 'turntable.jpg', alt: 'Вініловий програвач з платівкою', caption: 'Наш програвач' },
+    { img: 'billie-bw.jpg', alt: 'Чорно-білий портрет Billie Eilish', caption: 'Наша муза' }
+  ];
+
+  var socials = [
+    { label: 'billieeilish.com', href: 'https://www.billieeilish.com' },
+    { label: 'Spotify', href: 'https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH' },
+    { label: 'YouTube', href: 'https://www.youtube.com/@BillieEilish' },
+    { label: 'Instagram', href: 'https://www.instagram.com/billieeilish/' }
+  ];
+
+  var hours = [
+    { days: 'Пн–Чт', time: '08:00–22:00' },
+    { days: "П'ятниця", time: '08:00–01:00' },
+    { days: 'Сб–Нд', time: '09:00–23:00' }
+  ];

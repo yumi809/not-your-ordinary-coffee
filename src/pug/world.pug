@@ -1,0 +1,82 @@
+extends layout.pug
+
+block vars
+  - var page = { id: 'world', description: "Світ Not Your Ordinary Coffee: інтер'єр, атмосфера, музика Billie Eilish на вінілі та історія кав'ярні." }
+
+block title
+  | Our World — Not Your Ordinary Coffee
+
+block content
+  section.page-hero.page-hero--world(aria-labelledby='page-title')
+    .container
+      p.eyebrow Interior • Atmosphere • Music
+      h1#page-title.page-hero__title.glitch(data-text='Our World') Our World
+      p.page-hero__lead Зелене світло, оксамитові дивани, програвач на барі і трохи меланхолії.
+
+  section.section
+    .container.split
+      .split__main
+        article.story(aria-labelledby='story-title')
+          p.eyebrow Story
+          h2#story-title.story__title Як усе почалося
+          p
+            | Ми відкрилися взимку 2024 року, в тиждень, коли вийшов альбом «Hit Me Hard and Soft». Двоє бариста
+            | і один програвач — так виглядала перша зміна. Ідея була проста: зробити місце, де можна бути
+            | тихим, дивним і собою, а кава при цьому не гірша, ніж у найкращих спешелті-кав'ярнях міста.
+          p
+            | Інтер'єр ми зібрали з того, що любимо: глибокий зелений, неонове світло, темне дерево й рослини.
+            | Назви напоїв — це пісні, під які їх придумували. А меню змінюється, коли виходить новий трек.
+
+        section.photos(aria-labelledby='photos-title')
+          h2#photos-title.visually-hidden Фото інтер'єру
+          .photo-grid
+            each photo in photos
+              figure.photo
+                span.photo__zoom
+                  img.photo__img(src='img/' + photo.img alt=photo.alt width='800' height='600' loading='lazy')
+                figcaption.photo__caption= photo.caption
+
+        section.section-inner(aria-labelledby='playlist-title')
+          +section-head('Playlist', 'Що крутиться на програвачі', 'Альбоми й треки, під які ми варимо каву.', 'playlist-title')
+          ol.playlist
+            each album in albums
+              li.playlist__album
+                h3.playlist__name= album.title
+                span.playlist__year= album.year
+                ul.playlist__songs
+                  each song in album.songs
+                    li= song
+
+        section.section-inner(aria-labelledby='links-title')
+          h2#links-title.story__title Слухай Billie разом з нами
+          ul.links
+            each link in socials
+              li
+                a.links__item(href=link.href target='_blank' rel='noopener noreferrer')= link.label
+
+        section.section-inner.credits(aria-labelledby='credits-title')
+          h2#credits-title.credits__title Автори фото
+          p.credits__note
+            | Усі фотографії взято з Wikimedia Commons за вільними ліцензіями (CC0, CC BY, CC BY-SA).
+            | Фото Billie Eilish зроблені фотографами на концертах і заходах; кав'ярня вигадана.
+          ul.credits__list
+            each c in credits
+              li
+                a(href=c.page target='_blank' rel='noopener noreferrer')= c.img
+                |  — #{c.artist},
+                = ' '
+                if c.licenseUrl
+                  a(href=c.licenseUrl target='_blank' rel='noopener noreferrer')= c.license
+                else
+                  span= c.license
+
+      aside.split__aside(aria-label='Години роботи та адреса')
+        .info-card
+          p.eyebrow Visit us
+          h2.info-card__title Години роботи
+          dl.info-card__hours
+            each h in hours
+              dt= h.days
+              dd= h.time
+          p.info-card__address= site.address
+          +button('order.html', 'Замовити заздалегідь')
