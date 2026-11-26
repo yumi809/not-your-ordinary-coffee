@@ -67,6 +67,21 @@ npm run build      # фінальна збірка у dist/
 
 Після `npm run build` у `dist/` з'являються: `*.html`, `css/style.css` (з префіксами, мініфікований), `img/`, `js/main.js`.
 
+## Сайт онлайн
+
+**https://yumi809.github.io/not-your-ordinary-coffee/** відкривається на будь-якому пристрої.
+
+Сайт опубліковано на GitHub Pages: вміст `dist/` лежить у гілці `gh-pages`. Щоб оновити сайт після змін:
+
+```bash
+npm run build
+git add -A && git commit -m "Update site"
+git subtree split --prefix dist -b gh-pages-new
+git push -f origin gh-pages-new:gh-pages
+git branch -D gh-pages-new
+git push
+```
+
 ## Як відкрити на різних пристроях
 
 - **На ПК без сервера.** Двічі клацнути `dist/index.html`: усі шляхи відносні, тож сайт відкриється в будь-якому браузері. Для шрифтів потрібен інтернет, без нього підставляться системні.
