@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Menu — Not Your Ordinary Coffee
+    </title>
+    <meta name="description" content="Меню кав'ярні Not Your Ordinary Coffee: кава, матча, десерти та сніданки з назвами пісень Billie Eilish. Ціни та розміри.">
+    <meta name="keywords" content="кав'ярня, Billie Eilish, кава, матча, авторські напої, десерти, сніданки, музика, онлайн-замовлення">
+    <meta name="author" content="Кароліна">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+      document.documentElement.classList.add('js');
+      try { if (sessionStorage.getItem('nyoc-intro')) { document.documentElement.classList.add('seen-intro'); } else { sessionStorage.setItem('nyoc-intro', '1'); } } catch (e) {}
+    </script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body class="page-menu"><a class="skip-link" href="#main">Перейти до вмісту</a>
+    <div class="preloader" aria-hidden="true"><span class="preloader__logo">NYOC</span><span class="preloader__sub">a Billie Eilish café</span></div>
+    <div class="progress" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <header class="header">
+      <div class="container header__inner"><a class="logo" href="index.html" aria-label="Not Your Ordinary Coffee — на головну"><span class="logo__dot" aria-hidden="true"></span><span class="logo__text">NYOC</span></a>
+        <input class="header__toggle" id="nav-toggle" type="checkbox" aria-label="Показати або сховати меню">
+        <label class="burger" for="nav-toggle"><span class="burger__line"></span><span class="visually-hidden">Меню</span></label>
+        <nav class="nav" aria-label="Головне меню">
+          <ul class="nav__list">
+            <li class="nav__item"><a class="nav__link" href="index.html">Home</a></li>
+            <li class="nav__item"><a class="nav__link is-active" href="menu.html" aria-current="page">Our Menu</a></li>
+            <li class="nav__item"><a class="nav__link" href="world.html">Our World</a></li>
+            <li class="nav__item"><a class="nav__link" href="specials.html">Specials</a></li>
+            <li class="nav__item"><a class="nav__link" href="order.html">Order</a></li>
+          </ul>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Змінити тему (темна / світла)"></button>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-hero page-hero--menu" aria-labelledby="page-title">
+        <div class="container">
+          <p class="eyebrow">Coffee • Matcha • Desserts • Breakfast</p>
+          <h1 class="page-hero__title glitch" id="page-title" data-text="Our Menu">Our Menu</h1>
+          <p class="page-hero__lead">23 позицій, і кожна названа на честь пісні Billie Eilish. Наведи курсор на фото — вони теж трохи танцюють.</p>
+        </div>
+      </section>
+      <section class="section" aria-labelledby="gallery-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow">Gallery</p>
+            <h2 class="section-head__title glitch" id="gallery-title" data-text="Signature menu">Signature menu</h2>
+            <p class="section-head__text">Обери категорію — фільтр працює на чистому CSS (:has + :checked).</p>
+          </header>
+          <div class="menu-board">
+            <div class="filter" role="radiogroup" aria-label="Категорія меню">
+              <input class="filter__input" type="radio" name="cat" id="cat-all" value="all" checked>
+              <label class="filter__btn" for="cat-all">Усе
+              </label>
+              <input class="filter__input" type="radio" name="cat" id="cat-coffee" value="coffee">
+              <label class="filter__btn" for="cat-coffee">Кава<span class="filter__count">7</span>
+              </label>
+              <input class="filter__input" type="radio" name="cat" id="cat-matcha" value="matcha">
+              <label class="filter__btn" for="cat-matcha">Матча й чай<span class="filter__count">5</span>
+              </label>
+              <input class="filter__input" type="radio" name="cat" id="cat-dessert" value="dessert">
+              <label class="filter__btn" for="cat-dessert">Десерти<span class="filter__count">7</span>
+              </label>
+              <input class="filter__input" type="radio" name="cat" id="cat-food" value="food">
+              <label class="filter__btn" for="cat-food">Сніданки<span class="filter__count">4</span>
+              </label>
+            </div>
+            <div class="gallery">
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/espresso.jpg" alt="Еспресо в білій чашці" width="600" height="600" loading="lazy"></span><span class="card__badge">Hot</span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Bad Guy Espresso</h3>
+                  <p class="card__text">Подвійний еспресо темного обсмаження з нотами какао та чорної вишні.</p>
+                  <p class="card__price"><span class="price">65 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/americano.jpg" alt="Американо в чорній чашці, вигляд згори" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">When the Party's Over</h3>
+                  <p class="card__text">Американо в чорній чашці — для тих, хто йде останнім.</p>
+                  <p class="card__price"><span class="price">70 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/cappuccino.jpg" alt="Капучино з латте-артом" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Ocean Eyes Cappuccino</h3>
+                  <p class="card__text">Класичний капучино з шовковою піною та латте-артом.</p>
+                  <p class="card__price"><span class="price">85 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/flat-white.jpg" alt="Флет вайт на темному дерев’яному столі" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Six Feet Under Flat White</h3>
+                  <p class="card__text">Подвійний ристрето і тонкий шар молока. Глибоко.</p>
+                  <p class="card__price"><span class="price">90 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/mocha.jpg" alt="Холодне мокко з карамеллю" width="600" height="600" loading="lazy"></span><span class="card__badge">Top</span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Bury a Friend Mocha</h3>
+                  <p class="card__text">Холодне мокко з солоною карамеллю та чорним шоколадом.</p>
+                  <p class="card__price"><span class="price">115 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/cold-brew.jpg" alt="Колд брю з льодом" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Lovely Cold Brew</h3>
+                  <p class="card__text">Колд брю 18-годинної екстракції з апельсиновою цедрою.</p>
+                  <p class="card__price"><span class="price">95 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--coffee" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/ocean-eyes.jpg" alt="Лате з латте-артом у чорній чашці" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Halley's Comet Latte</h3>
+                  <p class="card__text">Ніжне лате на вівсяному молоці без цукру і без зайвого.</p>
+                  <p class="card__price"><span class="price">90 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--matcha" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/matcha.jpg" alt="Айс-матча з молоком" width="600" height="600" loading="lazy"></span><span class="card__badge">Signature</span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Happier Than Ever Matcha</h3>
+                  <p class="card__text">Айс-матча церемоніального класу з вівсяним молоком.</p>
+                  <p class="card__price"><span class="price">120 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--matcha" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/matcha-hot.jpg" alt="Гаряча матча з латте-артом" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Getting Older Matcha</h3>
+                  <p class="card__text">Гаряча матча-лате з латте-артом і ваніллю.</p>
+                  <p class="card__price"><span class="price">110 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--matcha" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/chai.jpg" alt="Чай-лате в чорній чашці" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Lunch Chai Latte</h3>
+                  <p class="card__text">Пряний чай з корицею, кардамоном та молочною піною.</p>
+                  <p class="card__price"><span class="price">100 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--matcha" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/lavender.jpg" alt="Лавандовий раф у блакитній чашці" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Wildflower Raf</h3>
+                  <p class="card__text">Раф з лавандою і медом — ніжний, як акустика.</p>
+                  <p class="card__price"><span class="price">125 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--matcha" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/tonic.jpg" alt="Еспресо-тонік у склянці" width="600" height="600" loading="lazy"></span><span class="card__badge">New</span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Chihiro Tonic</h3>
+                  <p class="card__text">Еспресо-тонік з юдзу та розмарином. Гірко, свіжо, несподівано.</p>
+                  <p class="card__price"><span class="price">120 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/cheesecake.jpg" alt="Чізкейк з малиновим соусом" width="600" height="600" loading="lazy"></span><span class="card__badge">Top</span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Birds of a Feather Cheesecake</h3>
+                  <p class="card__text">Нью-йоркський чізкейк з малиновим соусом.</p>
+                  <p class="card__price"><span class="price">140 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/brownie.jpg" alt="Брауні з горіхами" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Everything I Wanted Brownie</h3>
+                  <p class="card__text">Брауні з горіхами та морською сіллю.</p>
+                  <p class="card__price"><span class="price">105 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/affogato.jpg" alt="Афогато в білій чашці" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Therefore I Am Affogato</h3>
+                  <p class="card__text">Кулька ванільного морозива, залита гарячим еспресо.</p>
+                  <p class="card__price"><span class="price">110 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/tiramisu.jpg" alt="Шматок тірамісу" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">No Time to Die Tiramisu</h3>
+                  <p class="card__text">Тірамісу з маскарпоне, савоярді та какао.</p>
+                  <p class="card__price"><span class="price">130 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/choco-cake.jpg" alt="Шоколадний торт" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Bellyache Choco Cake</h3>
+                  <p class="card__text">Шоколадний торт з ганашем і шоколадною стружкою.</p>
+                  <p class="card__price"><span class="price">135 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/macarons.jpg" alt="Кольорові макаруни" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">idontwannabeyouanymore Macarons</h3>
+                  <p class="card__text">Сет із шести макарунів різних кольорів і смаків.</p>
+                  <p class="card__price"><span class="price">150 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--dessert" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/cinnamon-bun.jpg" alt="Булочка з корицею" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Copycat Cinnamon Bun</h3>
+                  <p class="card__text">Скандинавська булочка з кардамоном та корицею.</p>
+                  <p class="card__price"><span class="price">75 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--food" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/croissant.jpg" alt="Круасан з ягодами" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">My Boy Croissant</h3>
+                  <p class="card__text">Масляний круасан з полуницею, чорницею та пудрою.</p>
+                  <p class="card__price"><span class="price">120 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--food" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/avocado-toast.jpg" alt="Тост з авокадо" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Ilomilo Avocado Toast</h3>
+                  <p class="card__text">Житній тост з авокадо, кунжутом і лаймом.</p>
+                  <p class="card__price"><span class="price">155 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--food" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/egg-toast.jpg" alt="Тост з авокадо та яйцем" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Lost Cause Toast</h3>
+                  <p class="card__text">Тост з авокадо, яйцем-пашот і зеленим салатом.</p>
+                  <p class="card__price"><span class="price">175 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+              <article class="card reveal card--food" data-tilt>
+                <div class="card__media"><span class="card__zoom"><img class="card__img" src="img/acai-bowl.jpg" alt="Боул з асаї та ягодами" width="600" height="600" loading="lazy"></span>
+                </div>
+                <div class="card__body">
+                  <h3 class="card__title">Ocean Eyes Açaí Bowl</h3>
+                  <p class="card__text">Боул з асаї, бананом, ягодами та гранолою.</p>
+                  <p class="card__price"><span class="price">165 ₴</span><span class="card__add" aria-hidden="true">+</span>
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section section--alt" aria-labelledby="prices-title">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="eyebrow">Prices</p>
+            <h2 class="section-head__title glitch" id="prices-title" data-text="Розміри та ціни">Розміри та ціни</h2>
+          </header>
+          <div class="table-wrap reveal">
+            <table class="price-table">
+              <caption>Прайс-лист NYOC, грн</caption>
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="2">Категорія</th>
+                  <th scope="col" rowspan="2">Позиція</th>
+                  <th scope="colgroup" colspan="3">Розмір</th>
+                </tr>
+                <tr>
+                  <th scope="col">S · 250 мл</th>
+                  <th scope="col">M · 350 мл</th>
+                  <th scope="col">L · 450 мл</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="price-table__cat" scope="rowgroup" rowspan="7">Кава</th>
+                  <td class="price-table__name">Bad Guy Espresso</td>
+                  <td class="price-table__one" colspan="3"><span class="price">65 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">When the Party's Over</td>
+                  <td><span class="price">70 ₴</span>
+                  </td>
+                  <td><span class="price">80 ₴</span>
+                  </td>
+                  <td><span class="price">90 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Ocean Eyes Cappuccino</td>
+                  <td><span class="price">75 ₴</span>
+                  </td>
+                  <td><span class="price">85 ₴</span>
+                  </td>
+                  <td><span class="price">95 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Six Feet Under Flat White</td>
+                  <td class="price-table__one" colspan="3"><span class="price">90 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Bury a Friend Mocha</td>
+                  <td><span class="price">105 ₴</span>
+                  </td>
+                  <td><span class="price">115 ₴</span>
+                  </td>
+                  <td><span class="price">125 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Lovely Cold Brew</td>
+                  <td><span class="price">85 ₴</span>
+                  </td>
+                  <td><span class="price">95 ₴</span>
+                  </td>
+                  <td><span class="price">105 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Halley's Comet Latte</td>
+                  <td><span class="price">80 ₴</span>
+                  </td>
+                  <td><span class="price">90 ₴</span>
+                  </td>
+                  <td><span class="price">100 ₴</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <th class="price-table__cat" scope="rowgroup" rowspan="5">Матча й чай</th>
+                  <td class="price-table__name">Happier Than Ever Matcha</td>
+                  <td><span class="price">110 ₴</span>
+                  </td>
+                  <td><span class="price">120 ₴</span>
+                  </td>
+                  <td><span class="price">135 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Getting Older Matcha</td>
+                  <td><span class="price">100 ₴</span>
+                  </td>
+                  <td><span class="price">110 ₴</span>
+                  </td>
+                  <td><span class="price">125 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Lunch Chai Latte</td>
+                  <td><span class="price">90 ₴</span>
+                  </td>
+                  <td><span class="price">100 ₴</span>
+                  </td>
+                  <td><span class="price">110 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Wildflower Raf</td>
+                  <td><span class="price">115 ₴</span>
+                  </td>
+                  <td><span class="price">125 ₴</span>
+                  </td>
+                  <td><span class="price">140 ₴</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Chihiro Tonic</td>
+                  <td class="price-table__one" colspan="3"><span class="price">120 ₴</span> · одна порція
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <th class="price-table__cat" scope="rowgroup" rowspan="7">Десерти</th>
+                  <td class="price-table__name">Birds of a Feather Cheesecake</td>
+                  <td class="price-table__one" colspan="3"><span class="price">140 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Everything I Wanted Brownie</td>
+                  <td class="price-table__one" colspan="3"><span class="price">105 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Therefore I Am Affogato</td>
+                  <td class="price-table__one" colspan="3"><span class="price">110 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">No Time to Die Tiramisu</td>
+                  <td class="price-table__one" colspan="3"><span class="price">130 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Bellyache Choco Cake</td>
+                  <td class="price-table__one" colspan="3"><span class="price">135 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">idontwannabeyouanymore Macarons</td>
+                  <td class="price-table__one" colspan="3"><span class="price">150 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Copycat Cinnamon Bun</td>
+                  <td class="price-table__one" colspan="3"><span class="price">75 ₴</span> · одна порція
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <th class="price-table__cat" scope="rowgroup" rowspan="4">Сніданки</th>
+                  <td class="price-table__name">My Boy Croissant</td>
+                  <td class="price-table__one" colspan="3"><span class="price">120 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Ilomilo Avocado Toast</td>
+                  <td class="price-table__one" colspan="3"><span class="price">155 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Lost Cause Toast</td>
+                  <td class="price-table__one" colspan="3"><span class="price">175 ₴</span> · одна порція
+                  </td>
+                </tr>
+                <tr>
+                  <td class="price-table__name">Ocean Eyes Açaí Bowl</td>
+                  <td class="price-table__one" colspan="3"><span class="price">165 ₴</span> · одна порція
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5">Рослинне молоко (вівсяне, кокосове, мигдальне) — +15 ₴. Додатковий шот еспресо — +20 ₴.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="menu-cta"><a class="btn" href="order.html">Замовити онлайн</a><a class="btn-outline" href="specials.html">Дивитись Specials</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0,0 H1200 V12 C1182,12 1178,40 1162,40 C1146,40 1142,12 1124,12 H986 C966,12 962,54 944,54 C926,54 922,12 902,12 H706 C690,12 688,30 674,30 C660,30 658,12 642,12 H424 C404,12 400,58 382,58 C364,58 360,12 340,12 H184 C168,12 166,34 152,34 C138,34 136,12 120,12 H0 Z"></path>
+      </svg>
+      <div class="container footer__grid">
+        <div class="footer__brand"><a class="logo" href="index.html" aria-label="Not Your Ordinary Coffee — на головну"><span class="logo__dot" aria-hidden="true"></span><span class="logo__text">NYOC</span></a>
+          <p class="footer__tagline">COFFEE • MUSIC • FEELINGS</p>
+          <address class="footer__address">вул. Неонова, 17<br><a href="tel:+380670001717">+380 67 000 17 17</a><br><a href="mailto:hello@nyoc.coffee">hello@nyoc.coffee</a></address>
+        </div>
+        <nav class="footer__col" aria-label="Навігація у футері">
+          <h2 class="footer__title">Сторінки</h2>
+          <ul class="footer__list">
+            <li class="nav__item"><a class="nav__link" href="index.html">Home</a></li>
+            <li class="nav__item"><a class="nav__link is-active" href="menu.html" aria-current="page">Our Menu</a></li>
+            <li class="nav__item"><a class="nav__link" href="world.html">Our World</a></li>
+            <li class="nav__item"><a class="nav__link" href="specials.html">Specials</a></li>
+            <li class="nav__item"><a class="nav__link" href="order.html">Order</a></li>
+          </ul>
+        </nav>
+        <div class="footer__col">
+          <h2 class="footer__title">Години</h2>
+          <ul class="footer__list">
+            <li><span class="footer__days">Пн–Чт</span> 08:00–22:00</li>
+            <li><span class="footer__days">П'ятниця</span> 08:00–01:00</li>
+            <li><span class="footer__days">Сб–Нд</span> 09:00–23:00</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h2 class="footer__title">Слухай з нами</h2>
+          <ul class="footer__list footer__ext">
+            <li><a href="https://www.billieeilish.com" target="_blank" rel="noopener noreferrer">billieeilish.com</a></li>
+            <li><a href="https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH" target="_blank" rel="noopener noreferrer">Spotify</a></li>
+            <li><a href="https://www.youtube.com/@BillieEilish" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a href="https://www.instagram.com/billieeilish/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>© 2026 Not Your Ordinary Coffee. Навчальний проєкт. Автор — Кароліна.</p>
+        <p>Фан-проєкт, натхненний музикою Billie Eilish. Не пов'язаний з артисткою.</p>
+      </div>
+    </footer>
+  </body>
+</html>

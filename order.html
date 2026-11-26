@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order — Not Your Ordinary Coffee
+    </title>
+    <meta name="description" content="Онлайн-замовлення в кав'ярні Not Your Ordinary Coffee: оберіть напій, розмір і добавки та заберіть без черги.">
+    <meta name="keywords" content="кав'ярня, Billie Eilish, кава, матча, авторські напої, десерти, сніданки, музика, онлайн-замовлення">
+    <meta name="author" content="Кароліна">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+      document.documentElement.classList.add('js');
+      try { if (sessionStorage.getItem('nyoc-intro')) { document.documentElement.classList.add('seen-intro'); } else { sessionStorage.setItem('nyoc-intro', '1'); } } catch (e) {}
+    </script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body class="page-order"><a class="skip-link" href="#main">Перейти до вмісту</a>
+    <div class="preloader" aria-hidden="true"><span class="preloader__logo">NYOC</span><span class="preloader__sub">a Billie Eilish café</span></div>
+    <div class="progress" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"></div>
+    <header class="header">
+      <div class="container header__inner"><a class="logo" href="index.html" aria-label="Not Your Ordinary Coffee — на головну"><span class="logo__dot" aria-hidden="true"></span><span class="logo__text">NYOC</span></a>
+        <input class="header__toggle" id="nav-toggle" type="checkbox" aria-label="Показати або сховати меню">
+        <label class="burger" for="nav-toggle"><span class="burger__line"></span><span class="visually-hidden">Меню</span></label>
+        <nav class="nav" aria-label="Головне меню">
+          <ul class="nav__list">
+            <li class="nav__item"><a class="nav__link" href="index.html">Home</a></li>
+            <li class="nav__item"><a class="nav__link" href="menu.html">Our Menu</a></li>
+            <li class="nav__item"><a class="nav__link" href="world.html">Our World</a></li>
+            <li class="nav__item"><a class="nav__link" href="specials.html">Specials</a></li>
+            <li class="nav__item"><a class="nav__link is-active" href="order.html" aria-current="page">Order</a></li>
+          </ul>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Змінити тему (темна / світла)"></button>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-hero page-hero--order" aria-labelledby="page-title">
+        <div class="container">
+          <p class="eyebrow">Order online</p>
+          <h1 class="page-hero__title glitch" id="page-title" data-text="Order">Order</h1>
+          <p class="page-hero__lead">Заповни форму — і твій напій чекатиме на баристі, поки ти йдеш до нас.</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container split">
+          <div class="split__main">
+            <section class="thanks" id="thanks" aria-live="polite">
+              <p class="eyebrow">Done</p>
+              <h2 class="thanks__title">Дякуємо! Замовлення прийнято.</h2>
+              <p>Бариста вже ставить твою платівку. Чекаємо на тебе за адресою: вул. Неонова, 17.</p>
+            </section>
+            <form class="form" action="order.html#thanks" method="get">
+              <fieldset class="fieldset">
+                <legend>Твої контакти</legend>
+                <div class="field">
+                  <label class="field__label" for="name">Ім'я</label>
+                  <input class="field__input" id="name" type="text" name="name" placeholder="Billie" required pattern="[A-Za-zА-Яа-яЁёҐґЄєІіЇї' \-]{2,40}" title="Від 2 до 40 літер" autocomplete="given-name"><small class="field__hint">Від 2 до 40 літер</small>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="email">Email</label>
+                  <input class="field__input" id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="phone">Телефон</label>
+                  <input class="field__input" id="phone" type="tel" name="phone" placeholder="+380XXXXXXXXX" required pattern="\+380[0-9]{9}" title="Формат: +380 і 9 цифр" autocomplete="tel"><small class="field__hint">Формат: +380 і 9 цифр</small>
+                </div>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Замовлення</legend>
+                <div class="field field--full">
+                  <label class="field__label" for="drink">Позиція з меню</label>
+                  <select class="field__input" id="drink" name="drink" required>
+                    <option value="">Оберіть позицію…</option>
+                    <optgroup label="Кава">
+                      <option value="Bad Guy Espresso">Bad Guy Espresso</option>
+                      <option value="When the Party's Over">When the Party's Over</option>
+                      <option value="Ocean Eyes Cappuccino">Ocean Eyes Cappuccino</option>
+                      <option value="Six Feet Under Flat White">Six Feet Under Flat White</option>
+                      <option value="Bury a Friend Mocha">Bury a Friend Mocha</option>
+                      <option value="Lovely Cold Brew">Lovely Cold Brew</option>
+                      <option value="Halley's Comet Latte">Halley's Comet Latte</option>
+                    </optgroup>
+                    <optgroup label="Матча й чай">
+                      <option value="Happier Than Ever Matcha">Happier Than Ever Matcha</option>
+                      <option value="Getting Older Matcha">Getting Older Matcha</option>
+                      <option value="Lunch Chai Latte">Lunch Chai Latte</option>
+                      <option value="Wildflower Raf">Wildflower Raf</option>
+                      <option value="Chihiro Tonic">Chihiro Tonic</option>
+                    </optgroup>
+                    <optgroup label="Десерти">
+                      <option value="Birds of a Feather Cheesecake">Birds of a Feather Cheesecake</option>
+                      <option value="Everything I Wanted Brownie">Everything I Wanted Brownie</option>
+                      <option value="Therefore I Am Affogato">Therefore I Am Affogato</option>
+                      <option value="No Time to Die Tiramisu">No Time to Die Tiramisu</option>
+                      <option value="Bellyache Choco Cake">Bellyache Choco Cake</option>
+                      <option value="idontwannabeyouanymore Macarons">idontwannabeyouanymore Macarons</option>
+                      <option value="Copycat Cinnamon Bun">Copycat Cinnamon Bun</option>
+                    </optgroup>
+                    <optgroup label="Сніданки">
+                      <option value="My Boy Croissant">My Boy Croissant</option>
+                      <option value="Ilomilo Avocado Toast">Ilomilo Avocado Toast</option>
+                      <option value="Lost Cause Toast">Lost Cause Toast</option>
+                      <option value="Ocean Eyes Açaí Bowl">Ocean Eyes Açaí Bowl</option>
+                    </optgroup>
+                    <optgroup label="Specials">
+                      <option value="Hit Me Hard and Soft">Hit Me Hard and Soft</option>
+                      <option value="Chihiro Tonic">Chihiro Tonic</option>
+                      <option value="L’Amour de Ma Vie Affogato">L’Amour de Ma Vie Affogato</option>
+                      <option value="My Future Matcha Cloud">My Future Matcha Cloud</option>
+                      <option value="The Greatest Tiramisu">The Greatest Tiramisu</option>
+                      <option value="Blue Cold Brew">Blue Cold Brew</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="field field--full"><span class="field__label">Розмір</span>
+                  <div class="choices">
+                    <label class="choice">
+                      <input type="radio" name="size" value="S" required><span>S · 250 мл</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="size" value="M" checked><span>M · 350 мл</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="size" value="L"><span>L · 450 мл</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="field field--full"><span class="field__label">Добавки</span>
+                  <div class="choices">
+                    <label class="choice">
+                      <input type="checkbox" name="extras" value="oat"><span>Вівсяне молоко</span>
+                    </label>
+                    <label class="choice">
+                      <input type="checkbox" name="extras" value="shot"><span>Додатковий шот</span>
+                    </label>
+                    <label class="choice">
+                      <input type="checkbox" name="extras" value="syrup"><span>Сироп</span>
+                    </label>
+                    <label class="choice">
+                      <input type="checkbox" name="extras" value="vinyl"><span>Попросити свій трек</span>
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Отримання</legend>
+                <div class="field field--full"><span class="field__label">Спосіб</span>
+                  <div class="choices">
+                    <label class="choice">
+                      <input type="radio" name="delivery" value="pickup" checked><span>Заберу сам(а)</span>
+                    </label>
+                    <label class="choice">
+                      <input type="radio" name="delivery" value="table"><span>Подати за столик</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="time">Час</label>
+                  <input class="field__input" id="time" type="time" name="time" required>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="art">Фото для латте-арту</label>
+                  <input class="field__input" id="art" type="file" name="art" title="Надрукуємо на пінці (необовʼязково)" accept="image/*"><small class="field__hint">Надрукуємо на пінці (необовʼязково)</small>
+                </div>
+                <div class="field field--full">
+                  <label class="field__label" for="comment">Коментар</label>
+                  <textarea class="field__input" id="comment" name="comment" rows="4" placeholder="Менше льоду, більше меланхолії…" maxlength="300"></textarea>
+                </div>
+              </fieldset>
+              <label class="choice choice--agree">
+                <input type="checkbox" name="agree" required><span>Погоджуюсь на обробку даних для цього замовлення</span>
+              </label>
+              <div class="form__actions">
+                <button class="btn" type="submit">Надіслати замовлення</button>
+                <button class="btn-outline" type="reset">Очистити</button>
+              </div>
+            </form>
+          </div>
+          <aside class="split__aside" aria-label="Контакти">
+            <div class="info-card">
+              <p class="eyebrow">Contacts</p>
+              <h2 class="info-card__title">Де нас знайти</h2>
+              <address class="info-card__address">вул. Неонова, 17<br><a href="tel:+380670001717">+380 67 000 17 17</a><br><a href="mailto:hello@nyoc.coffee">hello@nyoc.coffee</a></address>
+              <dl class="info-card__hours">
+                <dt>Пн–Чт</dt>
+                <dd>08:00–22:00</dd>
+                <dt>П'ятниця</dt>
+                <dd>08:00–01:00</dd>
+                <dt>Сб–Нд</dt>
+                <dd>09:00–23:00</dd>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0,0 H1200 V12 C1182,12 1178,40 1162,40 C1146,40 1142,12 1124,12 H986 C966,12 962,54 944,54 C926,54 922,12 902,12 H706 C690,12 688,30 674,30 C660,30 658,12 642,12 H424 C404,12 400,58 382,58 C364,58 360,12 340,12 H184 C168,12 166,34 152,34 C138,34 136,12 120,12 H0 Z"></path>
+      </svg>
+      <div class="container footer__grid">
+        <div class="footer__brand"><a class="logo" href="index.html" aria-label="Not Your Ordinary Coffee — на головну"><span class="logo__dot" aria-hidden="true"></span><span class="logo__text">NYOC</span></a>
+          <p class="footer__tagline">COFFEE • MUSIC • FEELINGS</p>
+          <address class="footer__address">вул. Неонова, 17<br><a href="tel:+380670001717">+380 67 000 17 17</a><br><a href="mailto:hello@nyoc.coffee">hello@nyoc.coffee</a></address>
+        </div>
+        <nav class="footer__col" aria-label="Навігація у футері">
+          <h2 class="footer__title">Сторінки</h2>
+          <ul class="footer__list">
+            <li class="nav__item"><a class="nav__link" href="index.html">Home</a></li>
+            <li class="nav__item"><a class="nav__link" href="menu.html">Our Menu</a></li>
+            <li class="nav__item"><a class="nav__link" href="world.html">Our World</a></li>
+            <li class="nav__item"><a class="nav__link" href="specials.html">Specials</a></li>
+            <li class="nav__item"><a class="nav__link is-active" href="order.html" aria-current="page">Order</a></li>
+          </ul>
+        </nav>
+        <div class="footer__col">
+          <h2 class="footer__title">Години</h2>
+          <ul class="footer__list">
+            <li><span class="footer__days">Пн–Чт</span> 08:00–22:00</li>
+            <li><span class="footer__days">П'ятниця</span> 08:00–01:00</li>
+            <li><span class="footer__days">Сб–Нд</span> 09:00–23:00</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h2 class="footer__title">Слухай з нами</h2>
+          <ul class="footer__list footer__ext">
+            <li><a href="https://www.billieeilish.com" target="_blank" rel="noopener noreferrer">billieeilish.com</a></li>
+            <li><a href="https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH" target="_blank" rel="noopener noreferrer">Spotify</a></li>
+            <li><a href="https://www.youtube.com/@BillieEilish" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a href="https://www.instagram.com/billieeilish/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>© 2026 Not Your Ordinary Coffee. Навчальний проєкт. Автор — Кароліна.</p>
+        <p>Фан-проєкт, натхненний музикою Billie Eilish. Не пов'язаний з артисткою.</p>
+      </div>
+    </footer>
+  </body>
+</html>
